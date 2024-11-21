@@ -11,11 +11,10 @@ public class Main {
         Display display = new Display();
         Chunk chunk = new Chunk(new long[]{0, 0, 0});
         scene.meshes = chunk.cubes;
-        Movement.camera = camera;
 
         for(;;) {
+            camera.updatePosition(1);
             scene.render(display);
-            camera.moveCamera(new float[]{0.1f, 0, 0});
         }
     }
 }

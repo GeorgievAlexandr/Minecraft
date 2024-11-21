@@ -84,6 +84,7 @@ public class Scene {
     }
 
     public void render(Display display) {
+        display.updateWindowSize();
         Polygon3D[] polygons = artistAlgoritme();
         display.render(polygons);
     }
