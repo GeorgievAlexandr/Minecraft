@@ -1,6 +1,6 @@
 package Functions3D;
 //Чанк
-import java.awt.*;
+import java.awt.Color;
 
 public class Chunk {
     public Mesh[] cubes = new Mesh[65536];
@@ -17,7 +17,7 @@ public class Chunk {
             for(long z = coordinates[2]; z < coordinates[2] + 16; z++){
                 int limit = PerlinNoise.getNoise(x, z);
                 for(int y = 0; y < limit; y++){
-                    cubes[(int) ((x - coordinates[0]) + 16 * (y - coordinates[1]) + 256 * (z- coordinates[2]))] = createCube(new float[]{x, y, z});
+                    cubes[(int) ((x - coordinates[0]) + 16 * (y - coordinates[1]) + 256 * (z - coordinates[2]))] = createCube(new float[]{x, y, z});
                 }
             }
         }

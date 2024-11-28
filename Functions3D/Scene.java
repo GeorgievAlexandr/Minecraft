@@ -20,21 +20,27 @@ public class Scene {
         int numberOfVisiblePolygons = 0;
         for (Polygon3D polygon : polygons) {
             try {
-                polygon.calculateNormalAngle(camera.cameraPosition);
+                if (polygon.visible) {
+                    polygon.calculateNormalAngle(camera.cameraPosition);
+                }
             }
             catch (Exception e) {}
         }
         for (int i = 0; i < polygons.length; i++) {
-            if (polygons[i].localPivot[0] < -0.87f && polygons[i].normalAngle < 1.57f) {
-                numberOfVisiblePolygons++;
+            if (polygons[i].visible) {
+                if (polygons[i].localPivot[0] < -0.87f && polygons[i].normalAngle < 1.57f) {
+                    numberOfVisiblePolygons++;
+                }
             }
         }
         Polygon3D[] visiblePolygons = new Polygon3D[numberOfVisiblePolygons];
         numberOfVisiblePolygons = 0;
         for (int i = 0; i < polygons.length; i++) {
-            if (polygons[i].localPivot[0] < -0.87f && polygons[i].normalAngle < 1.57f) {
-                visiblePolygons[numberOfVisiblePolygons] = polygons[i];
-                numberOfVisiblePolygons++;
+            if (polygons[i].visible) {
+                if (polygons[i].localPivot[0] < -0.87f && polygons[i].normalAngle < 1.57f) {
+                    visiblePolygons[numberOfVisiblePolygons] = polygons[i];
+                    numberOfVisiblePolygons++;
+                }
             }
         }
         return visiblePolygons;
@@ -87,5 +93,26 @@ public class Scene {
         display.updateWindowSize();
         Polygon3D[] polygons = artistAlgoritme();
         display.render(polygons);
+    }
+
+    public void updateMeshes(){
+        int i = 0;
+        for (Chunk chunk : WorldGenerator.chunks) {
+            for(Mesh cube : chunk.cubes){
+                if(cube != null){
+                    i++;
+                }
+            }
+        }
+        this.meshes = new Mesh[i];
+        i = 0;
+        for (Chunk chunk : WorldGenerator.chunks) {
+            for(Mesh cube : chunk.cubes){
+                if(cube != null){
+                    this.meshes[i] = cube;
+                    i++;
+                }
+            }
+        }
     }
 }

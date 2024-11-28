@@ -6,14 +6,13 @@ import Functions3D.*;
 
 public class Main {
     public static void main(String[] args) {
-        Camera camera = new Camera(new float[]{-10, 15, 10}, new float[]{0, 3.14f, -0.3f});
+        Camera camera = new Camera(new float[]{-10, 25, 10}, new float[]{0, 3.14f, -0.6f});
         Scene scene = new Scene(camera);
         Display display = new Display();
-        Chunk chunk = new Chunk(new long[]{0, 0, 0});
-        scene.meshes = chunk.cubes;
+        WorldGenerator.generate();
+        scene.updateMeshes();
 
         for(;;) {
-            camera.updatePosition(1);
             scene.render(display);
         }
     }

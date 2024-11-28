@@ -9,6 +9,16 @@ public abstract class Functions3D {
         float vectorLength = (float) Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
         return vectorLength;
     }
+
+    public static float[] screenCoord(float[] localCoord){
+        float planeL = (float) (Display.WIDTH / Math.tan(Settings.FOV * 0.5));
+        float[] screenCoord = new float[2];
+        screenCoord[0] = (float) ((localCoord[2] / localCoord[0]) * planeL + Display.WIDTH * 0.5);
+        screenCoord[1] = (float) ((localCoord[1] / localCoord[0]) * planeL + Display.WIDTH * 0.5);
+        return screenCoord;
+    }
+
+    @Deprecated
     public static float[] coord3D2screenCoord(float[] localCoord) {
         //Локальные координаты в координаты на плоскости
         float[] polarCoord = new float[3];

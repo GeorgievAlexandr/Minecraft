@@ -10,6 +10,7 @@ public class Polygon3D{
     public float normalAngle = 0;
     public float[] pivot;
     public float[] localPivot;
+    public boolean visible = true;
     public Polygon polygon2D;
     public Color color;
 
@@ -100,7 +101,7 @@ public class Polygon3D{
         int[] polygonsX = new int[3];
         int[] polygonsY = new int[3];
         for (int j = 0; j < 3; j++) {
-            float[] screenCoordF = Functions3D.coord3D2screenCoord(this.localVertices[j]);
+            float[] screenCoordF = Functions3D.screenCoord(this.localVertices[j]);
             polygonsX[j] = (int) screenCoordF[0];
             polygonsY[j] = (int) screenCoordF[1];
         }
