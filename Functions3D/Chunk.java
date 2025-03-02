@@ -21,6 +21,22 @@ public class Chunk {
                 }
             }
         }
+        for(int id = 0; id < cubes.length; id++){
+            calculateVisible(id);
+        }
+    }
+
+    private void calculateVisible(int id){
+        boolean visible = false;
+        if (id % 16 == 0 || id < 256 || id > 65280) {
+            visible = true;
+        }
+        else {
+            visible = !(cubes[id-1] != null && cubes[id+1] != null && cubes[id+16] != null && cubes[id-16] != null && cubes[id+256] != null && cubes[id-256] != null);
+        }
+        if(cubes[id] != null) {
+            cubes[id].setVisible(visible);
+        }
     }
 
     private static Mesh createCube(float[] coord){

@@ -32,6 +32,12 @@ public class Mesh {
         this.pivot = pivotCoord;
     }
 
+    public void setVisible(boolean visible) {
+        for (Polygon3D polygon : polygons3D) {
+            polygon.visible = visible;
+        }
+    }
+
 
     public void rotate(float[] angle) {
         //Поворачивает меш вокруг его пивота

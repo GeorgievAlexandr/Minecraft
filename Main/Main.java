@@ -14,6 +14,7 @@ public class Main {
 
         for(;;) {
             scene.render(display);
+            camera.localMove(new float[] {0.1f, 0, 0});
         }
     }
 }

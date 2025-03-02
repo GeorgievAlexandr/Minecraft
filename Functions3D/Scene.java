@@ -19,12 +19,11 @@ public class Scene {
         //Рассчитывает видимые полигоны
         int numberOfVisiblePolygons = 0;
         for (Polygon3D polygon : polygons) {
-            try {
+            if(polygon != null) {
                 if (polygon.visible) {
                     polygon.calculateNormalAngle(camera.cameraPosition);
                 }
             }
-            catch (Exception e) {}
         }
         for (int i = 0; i < polygons.length; i++) {
             if (polygons[i].visible) {
