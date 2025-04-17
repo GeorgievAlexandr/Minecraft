@@ -38,8 +38,17 @@ public class Mesh {
         }
     }
 
-
     public void rotate(float[] angle) {
+        Functions3D.calculateRotationMatrix(angle);
+        for (int i = 0; i < this.polygons3D.length; i++) {
+            polygons3D[i].rotate(this.pivot);
+        }
+    }
+
+
+
+    @Deprecated
+    public void rotateOld(float[] angle) {
         //Поворачивает меш вокруг его пивота
         for (int i = 0; i < this.polygons3D.length; i++) {
             polygons3D[i].rotate(angle, this.pivot);

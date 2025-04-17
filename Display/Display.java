@@ -61,6 +61,6 @@ public class Display extends JPanel {
             g2.fillPolygon(polygon3D.polygon2D);
         }
         g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
-        //System.out.println("Rendered: " + polynumber + " polygons");
+        System.out.println("Rendered: " + polynumber + " polygons");
     }
 }

@@ -47,6 +47,7 @@ public class Scene {
 
     private Polygon3D[] artistAlgoritme() {
         //Рассчитывает видимые полигоны, сортирует их и рассчитывает 2D полигоны
+        Functions3D.calculateRotationMatrix(camera.cameraRotation);
         int polyNumber = 0;
         for (Mesh mesh : meshes) {
             try {
@@ -67,15 +68,15 @@ public class Scene {
             }
             catch (Exception e) {}
         }
-        //Рассчёт локальных pivot-ов
+        //Расчёт локальных pivot-ов
         for (Polygon3D polygon : polygons) {
-            polygon.calculateLocalPivot(camera.cameraPosition, camera.cameraRotation);
+            polygon.calculateLocalPivot(camera.cameraPosition);
         }
-        //Рассчёт видимых полигонов
+        //Расчёт видимых полигонов
         Polygon3D[] visiblePolygons = visiblePolygons(polygons);
 
         for (Polygon3D polygon : visiblePolygons){
-            polygon.calculateLocalVerticles(camera.cameraPosition, camera.cameraRotation);
+            polygon.calculateLocalVerticles(camera.cameraPosition);
             polygon.calculateDistance();
             polygon.calculatePolygon2D();
         }

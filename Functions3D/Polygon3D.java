@@ -35,6 +35,20 @@ public class Polygon3D{
         calculatePivot();
     }
 
+    public void rotate(float[] pivotCoord) {
+        for (int i = 0; i < vertices.length; i++) {
+            this.vertices[i] = Functions3D.vectorWorldRotate(vertices[i], pivotCoord);
+        }
+        try {
+            this.normal[0] = Functions3D.vectorWorldRotate(this.normal[0], pivotCoord);
+            this.normal[1] = Functions3D.vectorWorldRotate(this.normal[1], pivotCoord);
+        }
+        catch (Exception e) {
+            System.out.println("No normal");
+        }
+        this.pivot = Functions3D.vectorWorldRotate(this.pivot, pivotCoord);
+    }
+
     public void rotate(float[] angle, float[] pivotCoord) {
         //Поворачивает полигон вокруг данного pivot-a
         for (int i = 0; i < vertices.length; i++) {
@@ -82,7 +96,7 @@ public class Polygon3D{
         //Рассчитывает угол между нормалью полигона и лучом из камеры, проходящем через pivot
         this.normalAngle = Functions3D.vectorAngle(this.normal[0], this.normal[1], this.pivot, position);
     }
-
+    @Deprecated
     public void calculateLocalVerticles(float[] position, float[] rotation){
         //Рассчитывает локальные координаты вершин полигона
         this.localVertices = new float[3][3];
@@ -90,10 +104,16 @@ public class Polygon3D{
             this.localVertices[i] = Functions3D.rotateVector(Functions3D.coordDiff(this.vertices[i], position), rotation);
         }
     }
+    public void calculateLocalVerticles(float[] position){
+        this.localVertices = new float[3][3];
+        for (int i = 0; i < 3; i++) {
+            this.localVertices[i] = Functions3D.rotateVectorUpd(Functions3D.coordDiff(this.vertices[i], position));
+        }
+    }
 
-    public void calculateLocalPivot(float[] position, float[] rotation){
+    public void calculateLocalPivot(float[] position){
         //Рассчитывает локальные координаты pivot-a полигона
-        this.localPivot = Functions3D.rotateVector(Functions3D.coordDiff(this.pivot, position), rotation);
+        this.localPivot = Functions3D.rotateVectorUpd(Functions3D.coordDiff(this.pivot, position));
     }
 
     public void calculatePolygon2D() {

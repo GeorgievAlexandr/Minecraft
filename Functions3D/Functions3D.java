@@ -49,13 +49,18 @@ public abstract class Functions3D {
         }
         return coordSum;
     }
-
+    @Deprecated
     public static float[] vectorWorldRotate(float[] vector, float[] pivotCoord, float[] angle) {
         //Поворачивает точку на заданный угол вокруг пивота
         float[] vectorLocal = rotateVector(coordDiff(vector, pivotCoord), angle);
         return coordSum(vectorLocal, pivotCoord);
     }
-
+    public static float[] vectorWorldRotate(float[] vector, float[] pivotCoord) {
+        //Поворачивает точку на заданный угол вокруг пивота
+        float[] vectorLocal = rotateVectorUpd(coordDiff(vector, pivotCoord));
+        return coordSum(vectorLocal, pivotCoord);
+    }
+    @Deprecated
     public static float[] rotateVector(float[] localCoord, float[] angle) {
         //Поворачивает точку на заданный угол вокруг нуля координат
         float[] outVector = new float[3];
@@ -83,6 +88,36 @@ public abstract class Functions3D {
         return localCoord;
     }
 
+    private static float[][] rotationMatrix  = new float[3][2];
+
+    public static void calculateRotationMatrix(float[] angle) {
+        rotationMatrix[0][0] = (float) Math.cos(angle[0]);
+        rotationMatrix[0][1] = (float) Math.sin(angle[0]);
+        rotationMatrix[1][0] = (float) Math.cos(angle[1]);
+        rotationMatrix[1][1] = (float) Math.sin(angle[1]);
+        rotationMatrix[2][0] = (float) Math.cos(angle[2]);
+        rotationMatrix[2][1] = (float) Math.sin(angle[2]);
+    }
+
+    public static float[] rotateVectorUpd(float[] localCoord){
+        float[] outVector = new float[3];
+        outVector[1] = (localCoord[0] * rotationMatrix[0][0]) - localCoord[2] * rotationMatrix[0][1];
+        outVector[2] = (localCoord[1] * rotationMatrix[0][1]) + localCoord[2] * rotationMatrix[0][0];
+        localCoord[1] = outVector[1];
+        localCoord[2] = outVector[2];
+
+        outVector[0] = (localCoord[0] * rotationMatrix[1][0]) - localCoord[2] * rotationMatrix[1][1];
+        outVector[2] = (localCoord[0] * rotationMatrix[1][1]) + localCoord[2] * rotationMatrix[1][0];
+        localCoord[0] = outVector[0];
+        localCoord[2] = outVector[2];
+
+        outVector[0] = (localCoord[0] * rotationMatrix[2][0] - localCoord[1] * rotationMatrix[2][1]);
+        outVector[1] = (localCoord[0] * rotationMatrix[2][1] + localCoord[1] * rotationMatrix[2][0]);
+        localCoord[0] = outVector[0];
+        localCoord[1] = outVector[1];
+        return localCoord;
+    }
+    
     public static float vectorAngle(float[] vectorPos1, float[] vectorPos2, float[] vector2Pos1, float[] vector2Pos2) {
         //Угол между векторами
         float[] vector1Local = coordDiff(vectorPos2, vectorPos1);
