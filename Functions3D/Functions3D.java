@@ -93,15 +93,17 @@ public abstract class Functions3D {
     public static void calculateRotationMatrix(float[] angle) {
         rotationMatrix[0][0] = (float) Math.cos(angle[0]);
         rotationMatrix[0][1] = (float) Math.sin(angle[0]);
+
         rotationMatrix[1][0] = (float) Math.cos(angle[1]);
         rotationMatrix[1][1] = (float) Math.sin(angle[1]);
+
         rotationMatrix[2][0] = (float) Math.cos(angle[2]);
         rotationMatrix[2][1] = (float) Math.sin(angle[2]);
     }
 
     public static float[] rotateVectorUpd(float[] localCoord){
         float[] outVector = new float[3];
-        outVector[1] = (localCoord[0] * rotationMatrix[0][0]) - localCoord[2] * rotationMatrix[0][1];
+        outVector[1] = (localCoord[1] * rotationMatrix[0][0]) - localCoord[2] * rotationMatrix[0][1];
         outVector[2] = (localCoord[1] * rotationMatrix[0][1]) + localCoord[2] * rotationMatrix[0][0];
         localCoord[1] = outVector[1];
         localCoord[2] = outVector[2];

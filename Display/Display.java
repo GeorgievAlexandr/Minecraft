@@ -43,14 +43,14 @@ public class Display extends JPanel {
 
     public void render(Polygon3D[] polygons3D) {
         //Выводит в окно 2D полигоны
-        int polynumber = 0;
+        //int polynumber = 0;
         Graphics g = window.getGraphics();
         Image image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics g2 = image.getGraphics();
         g2.setColor(Color.LIGHT_GRAY);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
         for(Polygon3D polygon3D : polygons3D) {
-            polynumber++;
+            //polynumber++;
             try {
                 g2.setColor(polygon3D.color);
             }
@@ -61,6 +61,6 @@ public class Display extends JPanel {
             g2.fillPolygon(polygon3D.polygon2D);
         }
         g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
-        System.out.println("Rendered: " + polynumber + " polygons");
+        //System.out.println("Rendered: " + polynumber + " polygons");
     }
 }

@@ -102,12 +102,14 @@ public class Polygon3D{
         this.localVertices = new float[3][3];
         for (int i = 0; i < 3; i++) {
             this.localVertices[i] = Functions3D.rotateVector(Functions3D.coordDiff(this.vertices[i], position), rotation);
+
         }
     }
     public void calculateLocalVerticles(float[] position){
         this.localVertices = new float[3][3];
         for (int i = 0; i < 3; i++) {
-            this.localVertices[i] = Functions3D.rotateVectorUpd(Functions3D.coordDiff(this.vertices[i], position));
+            //this.localVertices[i] = Functions3D.rotateVectorUpd(Functions3D.coordDiff(this.vertices[i], position));
+            this.localVertices[i] = Functions3D.coordDiff(vertices[i], position);
         }
     }
 

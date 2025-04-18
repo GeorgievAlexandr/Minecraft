@@ -47,7 +47,6 @@ public class Scene {
 
     private Polygon3D[] artistAlgoritme() {
         //Рассчитывает видимые полигоны, сортирует их и рассчитывает 2D полигоны
-        Functions3D.calculateRotationMatrix(camera.cameraRotation);
         int polyNumber = 0;
         for (Mesh mesh : meshes) {
             try {
@@ -69,6 +68,7 @@ public class Scene {
             catch (Exception e) {}
         }
         //Расчёт локальных pivot-ов
+        Functions3D.calculateRotationMatrix(camera.cameraRotation);
         for (Polygon3D polygon : polygons) {
             polygon.calculateLocalPivot(camera.cameraPosition);
         }
